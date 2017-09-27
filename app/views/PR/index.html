@@ -1,0 +1,137 @@
+{% extends "layout.html" %} {% block page_title %} Take a registration number off a vehicle {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+
+    {% include "includes/phase_banner_alpha.html" %}
+
+
+    <div id="global-breadcrumb">
+        <ol>
+            <li><a href="http://www.gov.uk">Home</a></li>
+
+            <li>Number plates and vehicle registration</li>
+        </ol>
+    </div>
+
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="heading-xlarge">Take a registration number off a vehicle</h1>
+
+            <p>You can apply to take a registration number off a vehicle to:</p>
+
+            <ul class="list list-bullet">
+                <li>transfer it to <a href="https://www.gov.uk/put-registration-number-vehicle">another vehicle</a></li>
+                <li>hold on to it until you want to use it again in the future</li>
+            </ul>
+
+            <p>The registration number will be retained in the name of the registered keeper.</p>
+
+            <p>It costs £80.</p>
+
+            <div class="panel panel-border-wide">
+                <p>This service is available Monday to Saturday, 8am to 6pm.</p>
+            </div>
+
+            {{ button.input(id='continue', name='continue', class='button button-start', type='button', value='Start now') }}
+
+            <h2 class="heading-medium">Before you start</h2>
+
+            <p>You’ll need:</p>
+            <ul class="list-bullet">
+                <li>the 11 digit document reference number from the latest <a href="">V5C vehicle registration certificate (logbook)</a></li>
+                <li>a valid credit or debit card</li>
+            </ul>
+
+            <p>Your vehicle must be:</p>
+            <ul class="list-bullet">
+                <li>registered with DVLA</li>
+                <li>taxed or have a <a href="">SORN</a> (Statutory Off Road Notification) in place within the last 5 years</li>
+                <li>available for inspection</li>
+            </ul>
+
+            <h2 class="heading-small">‘Q’ registration numbers</h2>
+
+            <p>You can’t retain a registration number starting with ‘Q’.</p>
+            <h2 class="heading-medium">Other ways to apply</h2>
+
+            <p>Send the following documents to the DVLA:</p>
+            <ul class="list-bullet">
+                <li>a V317 <a href="">‘transfer or retain a vehicle registration number’</a> form</li>
+                <li>the registration certificate (V5C) for the vehicle or the new keeper’s supplement with a V62 <a href="">‘application for a vehicle registration certificate V5C’</a> form</li>
+                <li>the £80 transfer fee</li>
+            </ul>
+
+            <p>If you need to tax your vehicle at the same time, send:</p>
+            <ul class="list-bullet">
+                <li>a V10 <a href="">‘application for vehicle tax’</a> form</li>
+                <li>the right amount of <a href="">vehicle tax</a></li>
+                <li>an MOT certificate</li>
+            </ul>
+            <p></p>
+            <div class="panel panel-border-wide">
+                <p>The address to send all your documents is on the V317.</p>
+            </div>
+            <h2 class="heading-medium">What happens next</h2>
+
+            <p>DVLA will contact you to arrange an appointment if your vehicle needs to be inspected. Otherwise, your application will be approved in 2 weeks.</p>
+
+            <p>You’ll be sent:</p>
+            <ul class="list-bullet">
+                <li>a <a href="">V778 retention document</a> showing you as the ‘grantee’</li>
+                <li>a registration certificate showing the replacement registration number</li>
+            </ul>
+
+            <p>These should arrive within 4 weeks of getting the confirmation letter. It can take up to 6 weeks if you use a V62 application to support your application.</p>
+
+            <p>If you retain the registration number in someone else’s name, the retention document will be sent to them, as they are recorded as the grantee.</p>
+
+            <h2 class="heading-medium">More information</h2>
+            <p><a href="">Contact DVLA</a> for more information about taking a personalised registration number off a vehicle.</p>
+
+            <div class="meta-data group">
+                <p class="modified-date form-hint">Last updated: 18 September 2017</p>
+            </div>
+        </div>
+
+        <!-- end .column-two-thirds  -->
+
+        <!--  RIGHT COLUMN  -->
+
+
+        <div class="column-third">
+            <div class="related-links">
+                <h2 class="heading-medium">Number plates and vehicle registration</h2>
+                <ul class="font-xsmall">
+                    <li><a href="#">Personalised vehicle registration numbers</a></li>
+                    <li><a href="#">Get a V5C vehicle registration certificate (log book)</a></li>
+                    <li><a href="#">Displaying number plates</a></li>
+                    <li><a href="#">More in Number plates and vehicle registration</a></li>
+                    <li><a href="#" class="bold-xsmall">More</a></li>
+                </ul>
+                <br>
+
+                <h2 class="heading-medium">Driving and transport</h2>
+                <ul class="font-xsmall">
+                    <li><a href="#">Tax your vehicle</a></li>
+                    <li><a href="#">Calculate vehicle tax rates</a></li>
+                    <li><a href="#">Vehicle tax rate tables</a></li>
+                    <li><a href="#">Getting an MOT</a></li>
+                    <li><a href="#" class="bold-xsmall">More</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- end .related-links  --
+    <!-- end .grid-row  -->
+</main>
+<script type="text/javascript">
+    $(".button").click(function() {
+        // Enter function name here
+        validate();
+    });
+
+    function validate() {
+        member.clear();
+        go('/PR/details.html');
+    }
+
+</script>
+{% endblock %}

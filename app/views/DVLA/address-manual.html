@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Find your address
+{% endblock %}
+
+{% block head %}
+{% include "includes/head.html" %}
+{% include "includes/scripts.html" %}
+<style type="text/css">
+    input#postcode { text-transform: uppercase; }
+</style>
+{% endblock %}
+
+{% import "templates/button.html" as button %}
+
+{% block content %}
+    <main id="content" role="main" tabindex="-1">
+        {% include "includes/phase_banner_beta.html" %}
+        {% include "includes/buttons/back.html" %}
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+                    <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There’s a problem with the information you have provided</h1>
+
+                    <p>Please amend the following details:</p>
+                    <ul class="error-summary-list">
+                        <li class="address1 error-message"><a href="#qaddress">Provide your new house number/name and street</a></li>
+                        <li class="posttown error-message"><a href="#qposttown">Provide your new post town</a></li>
+                        <li class="postcode error-message"><a href="#qpostcode">Provide your new postcode</a></li>
+                        <li class="postcode error-message format"><a href="#qpostcode">Provide correct postcode format</a></li>
+                    </ul>
+                </div>
+
+                <h1 class="heading-large">We weren’t able to match your address</h1>
+                <span id="hint" class="form-hint resized-bottom-margin">Instead, enter your address manually</span>
+
+                <form class="form">
+                    <div class="form-group">
+                        <fieldset>
+                            <legend class="visuallyhidden">Enter your address</legend>
+
+                            <div class="form-group" id="qaddress">
+                                <label class="form-label" for="address1">
+                                    Building and street
+                                    <span class="form-hint"></span>
+                                    <span class="address1 error-message">
+                                        Provide your new house number/name and street
+                                    </span>
+                                </label>
+                                <input spellcheck="false" class="form-control" id="address1" name="address1" type="text" value="">
+                            </div>
+
+                            <div class="form-group" id="qaddress2">
+                                <label class="visuallyhidden form-label" for="address2">
+                                    Address line 2
+                                </label>
+                                <input spellcheck="false" class="form-control" id="address2" name="address2" type="text" value="">
+                            </div>
+
+                            <div class="form-group" id="qposttown">
+                                <label class="form-label" for="posttown">
+                                    Town or city
+                                    <span class="form-hint"></span>
+                                    <span class="posttown error-message">
+                                        Provide your new post town
+                                    </span>
+                                </label>
+                                <input spellcheck="false" class="form-control form-control-1-3" id="posttown" name="posttown" type="text" value="">
+                            </div>
+
+                            <div class="form-group" id="qpostcode">
+                                <label class="form-label" for="postcode">
+                                    Postcode
+                                    <span class="form-hint"></span>
+                                    <span class="postcode error-message">
+                                        Provide your new postcode
+                                    </span>
+                                    <span class="postcode format error-message">
+                                        Provide correct postcode format
+                                    </span>
+                                </label>
+                                <input spellcheck="false" class="form-control form-control-1-4" id="postcode" name="postcode" type="text" value="">
+                            </div>
+                        </fieldset>
+                    </div>
+                    <!--  end .form-group  -->
+
+                    {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+                </form>
+            </div>
+            <!--  end column-two-thirds  -->
+        </div>
+        <!--  end gridrow  -->
+    </main>
+    <!--
+122 Burns Crescent
+Edinburgh
+EH1 9GP
+-->
+
+    <script type="text/javascript">
+        $(".button").click(function(){
+            // Enter function name here
+            validate();
+        });
+        
+        var address = {};
+
+        function validate() {
+            var validInput = true;
+
+            // Hide before rechecking validation
+            $('.address1.error-message').hide();
+            $('#qaddress').removeClass('error');
+            $('.posttown.error-message').hide();
+            $('#qposttown').removeClass('error');
+            $('.postcode.error-message').hide();
+            $('#qpostcode').removeClass('error');
+            $('.postcode.format.error-message').hide();
+
+            var address1 = address = $('input[name=address1]').val();
+            var address2 = address = $('input[name=address2]').val();
+            var address3 = address = $('input[name=address3]').val();
+            if ((address1 == '') || (address1 == undefined)) {
+                $('#qaddress').addClass('error');
+                $('.address1.error-message').show();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            }
+
+            var posttown = address.posttown = $('input[name=posttown]').val();
+            if ((posttown == '') || (posttown == undefined)) {
+                $('#qposttown').addClass('error');
+                $('.posttown.error-message').show();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            }
+
+            var postcode = address.postcode = $('input[name=postcode]').val();
+            // Postcode format
+            //        var postcodeFormat = /^[A-Z]{1,2}[0-9]{1,2}\s?[0-9]{1}[A-Z]{2}$/;
+
+            //        if ((postcode == '') || (postcode == undefined)) {
+            //            $('#qpostcode').addClass('error');
+            //            $('.postcode.error-message').show();
+            //            $('.postcode.error-message.format').hide();
+            //            $('.error-summary').show();
+            //            $('body').scrollTop(0);
+            //            validInput = false;
+            //        } else if (postcodeFormat.test(postcode) === false) {
+            //            $('#qpostcode').addClass('error');
+            //            $('.postcode.error-message').hide();
+            //            $('.postcode.format.error-message').show();
+            //            $('.error-summary').show();
+            //            $('body').scrollTop(0);
+            //            validInput = false;
+            //        }
+
+            if ((postcode == '') || (postcode == undefined)) {
+                $('#qpostcode').addClass('error');
+                $('.postcode.error-message').show();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            }
+
+            if (validInput) {
+                var address = address1 + "<br>";
+                if (address2 && address2.length>0 )
+                    address += address2+"<br>";
+                if (address3 && address3.length>0 )
+                    address += address3+"<br>";
+                address += postCode;
+
+                member.customer.address = address; 
+                
+                next();
+            }
+        }
+
+        function next() {
+            if (changing == "true") {
+                go('/application-summary');
+            } else {
+                go('/contact-details');
+            }
+        }
+    </script>
+{% endblock %}

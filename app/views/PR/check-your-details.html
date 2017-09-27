@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block page_title %} Enter vehicle details {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+    <link href="/public/stylesheets/numberplate.css" rel="stylesheet" type="text/css" />
+    <h1 class="heading-large">Check your details before making your payment</h1>
+
+    <table class="check-your-answers">
+        <tbody>
+            <tr>
+                <td style="width:40%;">
+                    Registered keeper
+                </td>
+                <td colspan="2">
+                    <strong>Mr Joe Bloggs</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Postage address
+                </td>
+                <td>
+                    <strong>1 Example Street<br>
+					Swansea<br>
+					SA1 2BC </strong>
+                </td>
+                <td class="change-answer">
+                    <a href="/PR/confirm-address">
+					Change <span class="visuallyhidden">Postage address</span>
+					</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Registration number<br>&nbsp;
+                </td>
+                <td colspan="2" style="padding-top:1.5em" font-family="uknumberplateregular">
+                    <span class="reg-mark">ABC&nbsp;123</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Make
+                </td>
+                <td colspan="2">
+                    <strong>Volkswagen</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Model
+                </td>
+                <td colspan="2">
+                    <strong>Golf 2.0 GTI</strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email address
+                </td>
+                <td>
+                    <strong>email@email.com</strong>
+                </td>
+                <td class="change-answer">
+                    <a href="/PR/emailconf">
+						Change <span class="visuallyhidden">Email address</span>
+					</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="heading-medium">Before making payment</h2>
+
+    <p>I confirm that the answers I have given are correct to the best of my knowledge.</p>
+
+    <div class="notice margin-bottom-2">
+        <i class="icon icon-important">
+			<span class="visuallyhidden">Warning</span>
+		</i>
+        <strong class="bold-small">
+			After making this payment DVLA’s records will be updated instantly
+		</strong>
+    </div>
+    <a class="button" href="/PR/payment.html" role="button">Accept and make payment</a>
+
+</main>
+
+{% endblock %}

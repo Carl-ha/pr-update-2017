@@ -1,0 +1,209 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+Advanced radio progressive disclosure
+{% endblock %}
+
+{% block head %}
+{% include "includes/head.html" %}
+{% include "includes/scripts.html" %}
+{% endblock %}
+
+{% import "templates/button.html" as button %}
+
+{% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %}
+    {% include "includes/buttons/back.html" %}
+    <div class="grid-row" id="emailAnswer">
+        <div class="column-two-thirds">
+
+            <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1" style="display: none">
+                <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There was a problem</h1>
+
+                <p>Please amend the following details:</p>
+                <ul class="error-summary-list">
+                    <li class="qemailAddress error-message b"><a href="#emailAddress">Provide your email address</a></li>
+
+                    <li class="qemailAddressConfirm error-message c"><a href="#emailAddressConfirm">Confirm your email address</a></li>
+
+                    <li class="emailAnswerB error-message d"><a href="#emailAnswerB">The email addresses you have provided do not match</a></li>
+                </ul>
+            </div>
+
+
+            <h1 class="heading-large">Advanced radio progressive disclosure</h1>
+            <p class="lede">This is one of the most common advanceed patterns using this progressive disclosure</p>
+            
+            <form class="form">
+                <h2 class="heading-medium">Do you want an email receipt?</h2>
+
+                <div class="form-group" id="question">
+                    <span class="error-message a">
+                        Select an option
+                    </span>
+                    <fieldset class="inline">
+
+                        <legend class="visually-hidden">Do you want an email receipt?</legend>
+
+                        <div class="multiple-choice">
+                            <input id="emailAnswer-a1" type="radio" name="emailAnswer" value="Yes">
+                            <label class="block-label" for="emailAnswer-a1" id="emailAnswer-a1-label">Yes</label>
+                        </div>
+                        <div class="multiple-choice">
+                            <input id="emailAnswer-a2" type="radio" name="emailAnswer" value="No">
+                            <label class="block-label" for="emailAnswer-a2" id="emailAnswer-a2-label">No</label>
+                        </div>
+                        
+                        <div id="emailAnswerB" class="panel panel-border-narrow" style="display: none;">
+                        
+                            <span class="email error-message d">
+                                The email addresses you have provided do not match<br>
+                            </span>
+
+                            <div class="form-group" id="qemailAddress">
+                                <label class="form-label" for="emailAddress">Your email address</label>
+
+                                <span class="error-message b">
+                                    Provide your email address<br>
+                                </span>
+                                <input class="form-control" id="emailAddress" name="emailAddress" type="text" value="">
+                            </div>
+
+                            <div class="form-group" id="qemailAddressConfirm">
+                                <label class="form-label" for="emailAddressConfirm">Confirm your email address</label>
+
+                                <span class="error-message c">
+                                    Confirm your email address<br>
+                                </span>
+                                <input class="form-control" id="emailAddressConfirm" name="emailAddressConfirm" type="text" value="">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+
+            </form>
+        </div><!--  end .column-two-thirds  -->
+
+    </div><!--  end .grid-row  -->
+</main>
+
+<script type="text/javascript">
+    
+    //this is what triggers any validation - it translates to 'on clicking something with the class 'button' perform 'validate' - we then set a function called 'validate later which runs a series of conditions for it to check
+    $(".button").click(function(){
+        // Enter function name here
+        validate();
+    });
+
+    // this section is a bit hacky but it works perfectly for the system remembering if it's come from a check your answers page - when we come back to this page we want it to hide the back button - it looks to see if the url has '?change=true' at the end of it - this is important so that it can be re-routed back to the check your answers page
+    var changing = location.search.split('change=')[1];
+    if (changing === 'true') {
+        $('.button-back').hide();
+    }
+
+    //Now we set up a change function to look at when the radio selections change and we state that if one of them is selected we remove the first error message
+    $("input[name='emailAnswer']").change(function() {
+        $('#question').removeClass('form-group-error error');
+        $('.error-message.a').hide();
+        //here we set up an if statement to show the progressive disclosure when Yes is selected
+        if ($(this).val() === 'Yes') {
+            $('#emailAnswerB').show();
+        } else {
+            $('#emailAnswerB').hide();
+        }
+    });
+
+    //this is what triggers any validation - it translates to 'on clicking something with the class 'button' perform 'validate' - we then set a function called 'validate later which runs a series of conditions for it to check
+    function validate() {
+        //we now set up the variables we need to validate these 2 input fields
+        var value = $('input[name=emailAnswer]:checked').val();
+        var valueb = $('input[name=emailAddress]').val();
+        var valuec = $('input[name=emailAddressConfirm]').val();
+        var emailAddressConfirm = $('#emailAddressConfirm').val();
+        //we set the default variable to a true valid input
+        var validInput = true;
+
+        //now we look at all the validation that occurs after selecting 'Yes'
+        if (value === 'Yes') {
+            //we define what we need to member firstly the answer of 'Yes' and secondly the confirmed email address 
+            member.questions.emailChoice = $('input[id=emailAnswer-a1]:checked').val();
+            member.questions.email = emailAddressConfirm;
+
+            //now if the first email input is undefined we show the error
+            if ((valueb == '') || (valueb == undefined)) {
+                $('#qemailAddress').addClass('form-group-error error');
+                $('.error-message.b').show();
+                $('.error-message.d').hide();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            //if it's not undefined we hide the error
+            } else {
+                $('#qemailAddress').removeClass('form-group-error error');
+                $('.error-message.b').hide();
+            }
+
+            //now if the second email input is undefined we show the error
+            var valuec = $('input[name=emailAddressConfirm]').val();
+            if ((valuec == '') || (valuec == undefined)) {
+                $('#qemailAddressConfirm').addClass('form-group-error error');
+                $('.error-message.c').show();
+                $('.error-message.d').hide();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            //if it's not undefined we hide the error
+            } else {
+                $('#qemailAddressConfirm').removeClass('form-group-error error');
+                $('.error-message.c').hide();
+            }
+
+            //then we check to see if the 2 email addresses match - if they dont we show a different error and hide the others
+            if ((valueb !== valuec) && (validInput)) {
+                $('#qemailAddress, #qemailAddressConfirm').addClass('form-group-error error');
+                $('.error-message.b').hide();
+                $('.error-message.c').hide();
+                $('.error-message.d').show();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                validInput = false;
+            //if they do match we hide the error
+            } else {
+                $('.error-message.d').hide();
+            }
+            
+            //if all of the error conditions have passed then we have a valid input and call upon the next function to show us where to go next.
+            if (validInput) {
+                next();
+            }
+        
+        //we now define what happens when 'No' is selected
+        } else if (value === 'No') {
+            //firstly we delete the email address just in case we have come from the check your answers page (it may delete nothing but it doesn't really matter)
+            delete member.questions.email;
+            //then we member the value of 'No' and call upon the function of next
+            member.questions.emailChoice = value;
+            next();
+
+        //if yes or no have't been selected we play back 'error-message a'
+        } else {
+            $('#question').addClass('form-group-error error');
+            $('.error-message.a').show();
+        }
+    }
+
+    //we then define what function of next has
+    function next() {
+        //firstly if changing is true then go to check your answers
+        if (changing == "true") {
+            go('/DVLA/check-your-answers');
+        //secondly if changing isn't true then go to the next page
+        } else {
+            go('/DVLA/autocomplete-1');
+        }
+    }
+</script>
+{% endblock %}

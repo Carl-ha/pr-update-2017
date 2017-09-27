@@ -1,0 +1,125 @@
+{% extends "layout.html" %} {% block page_title %} Enter vehicle details {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+    <link href="/public/stylesheets/numberplate.css" rel="stylesheet" type="text/css" />
+
+    </style> {% include "includes/phase_banner_alpha.html" %}
+    <div class="grid-row">
+        <div class="column-two-thirds">
+
+            <div class="govuk-box-highlight">
+                <h1 class="bold-large">Application Successful</h1>
+
+                <p>Retention certificate number:</p>
+                <strong class="bold-medium">0&nbsp;12345&nbsp;12345&nbsp;ABC123</strong>
+            </div>
+
+            <p>An email summary has been sent to email@email.com</p>
+
+            <div class="form-group">
+                <p class="margin-bottom-2"><span class="reg-mark">ABC&nbsp;123</span> <span>&nbsp;can now be taken off the vehicle</span></p>
+
+                <p><span class="reg-mark">CV06&nbsp;AAA</span> <span>&nbsp;is your replacement registration number</span></p>
+            </div>
+
+
+
+            <h1 class="heading-large">Now do the following</h1>
+            <ul>
+                <li>
+                    <div>
+                        <img src="/public/images/icon-steps/icon-step-1.png" alt="step1"> Make up replacement number plates </img>
+                    </div>
+                </li>
+
+                <li>
+                    <details>
+                        <summary><span class="summary">How to make up replacement number plates</span></summary>
+                        <div class="panel panel-border-narrow">
+                            <div id="ev948">
+                                <div class="notice">
+                                    <a href="#">
+                                    <i class="icon ev948-download">
+									<span class="visuallyhidden">Warning</span>
+									</i>
+                                    <strong class="bold-medium">Download the eV948</strong>
+                                </a>
+                                </div>
+                            </div>
+
+                            <p>You can make up your number plates today by downloading and printing this form</p>
+
+                            <p><span style="padding:0.1em 0;font-weight:700">or</span></p>
+
+                            <p>You can wait until your new V5C registration certificate (logbook) has arrived and get your number plates made up at <a href="#">your nearest DVLA approved
+								number plate supplier</a></p>
+                        </div>
+
+
+                    </details>
+                </li>
+                <li>
+                    <div>
+                        <img src="/public/images/icon-steps/icon-step-2.png" alt="step2"> Put the new number plates on as soon as possible</p>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <img src="/public/images/icon-steps/icon-step-3.png" alt="step3"> Inform your insurance company about the change in registration number</img>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <img src="/public/images/icon-steps/icon-step-4.png" alt="step4"> Assign the retained registration number to another vehicle </img>
+                    </div>
+                </li>
+
+                <li>
+
+                    <details>
+                        <summary><span class="summary">How to assign the retained registration number to another vehicle</span></summary>
+                        <div class="panel panel-border-narrow">
+                            <p>You can <a href="#">put the registration number on a vehicle</a> using the Retention certificate number, found in the green box above. You must be the registered keeper of the vehicle you are assigning it to.</p>
+                            <p>We strongly advise that you keep your retention certificate number confidential until the registration number is ready to be sold or assigned to a vehicle.</p>
+                        </div>
+                    </details>
+                </li>
+            </ul>
+            <br>
+
+            <div class="notice margin-bottom-2">
+                <i class="icon icon-important" style="top:4%;">
+					<span class="visuallyhidden">Warning</span>
+				</i>
+                <strong class="bold-small">
+					Important information
+				</strong>
+                <br>
+                <p class="text">
+                    Your current Vehicle tax and MOT certificates will remain valid until their expiry dates. DVLA will NOT send you a replacement MOT certificate.
+                </p>
+                <p class="text">
+                    DVLA will send you a replacement V5C registration certificate (logbook) for CV06AAA. The V5C registration certificate (logbook) for ABC123 is now invalid and you should destroy it.
+                </p>
+            </div>
+
+            <a class="button" href="/PR/index.html" role="button">Finish</a>
+
+            <br>
+            <br>
+            <br>
+            <p>You can <a href="#">print this page </a>for your records</p>
+        </div>
+
+
+        <!--  end column-two-thirds  -->
+    </div>
+    <!--  end gridrow  -->
+</main>
+
+
+
+
+
+{% endblock %}

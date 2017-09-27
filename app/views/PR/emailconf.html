@@ -1,0 +1,212 @@
+ {% extends "layout.html" %} {% block page_title %} Email confirmation {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+    <div class="grid-row" id="emailAnswer">
+        <div class="column-two-thirds">
+
+            <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1" style="display: none">
+                <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There was a problem</h1>
+
+                <p>Please amend the following details:</p>
+                <ul class="error-summary-list">
+                    <li class="qemailAddress error-message a"><a href="#emailAnswer-yes">Select an option</a></li>
+
+                    <li class="qemailAddress error-message b"><a href="#emailAddress">Provide your email address</a></li>
+
+                    <li class="qemailAddressConfirm error-message c"><a href="#emailAddressConfirm">Confirm your email address</a></li>
+
+                    <li class="emailAnswerB error-message d"><a href="#emailAddress">The email addresses you have provided do not match</a></li>
+                </ul>
+            </div>
+
+
+            <h1 class="heading-large">Do you want an email confirmation of this transaction?</h1>
+
+            <span class="form-hint margin-bottom-1">DVLA will only use your email address to send an email confirmation of this transaction</span>
+            <form class="form">
+
+
+                <div class="form-group" id="question">
+                    <span class="error-message a">
+                        Select an option
+                    </span>
+                    <fieldset class="inline">
+
+                        <legend class="visually-hidden">Do you want an email receipt?</legend>
+
+                        <div class="multiple-choice">
+                            <input id="emailAnswer-yes" type="radio" name="emailAnswer" value="Yes">
+                            <label class="block-label" for="emailAnswer-yes" id="emailAnswer-yes-label">Yes</label>
+                        </div>
+                        <div class="multiple-choice">
+                            <input id="emailAnswer-no" type="radio" name="emailAnswer" value="No">
+                            <label class="block-label" for="emailAnswer-no" id="emailAnswer-no-label">No</label>
+                        </div>
+
+                        <div id="emailAnswerB" class="panel panel-border-narrow" style="display: none;">
+
+                            <span class="email error-message d">
+                                The email addresses you have provided do not match<br>
+                            </span>
+
+                            <div class="form-group" id="qemailAddress">
+                                <label class="form-label" for="emailAddress">Your email address</label>
+
+                                <span class="error-message b">
+                                    Provide your email address<br>
+                                </span>
+                                <input class="form-control" id="emailAddress" name="emailAddress" type="text" value="">
+                            </div>
+
+                            <div class="form-group" id="qemailAddressConfirm">
+                                <label class="form-label" for="emailAddressConfirm">Confirm your email address</label>
+
+                                <span class="error-message c">
+                                    Confirm your email address<br>
+                                </span>
+                                <input class="form-control" id="emailAddressConfirm" name="emailAddressConfirm" type="text" value="">
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+
+            </form>
+        </div>
+        <!--  end .column-two-thirds  -->
+
+    </div>
+    <!--  end .grid-row  -->
+</main>
+
+<script type="text/javascript">
+    $(".button").click(function() {
+
+        validate();
+    });
+
+    if (member.questions === undefined) {
+        member.questions = {};
+    }
+
+
+    var changing = location.search.split('change=')[1];
+    if (changing === 'true') {
+        $('.button-back').hide();
+    }
+
+    $("input[name='emailAnswer']").change(function() {
+        $('#question').removeClass('form-group-error error');
+        $('.error-message.a').hide();
+
+        if ($(this).val() === 'Yes') {
+            $('#emailAnswerB').show();
+            $('.error-summary').hide();
+        } else {
+            $('#emailAnswerB').hide();
+            $('.error-summary').hide();
+        }
+    });
+
+    function validate() {
+
+        var value = $('input[name=emailAnswer]:checked').val();
+        var valueb = $('input[name=emailAddress]').val();
+        var valuec = $('input[name=emailAddressConfirm]').val();
+        var emailAddressConfirm = $('#emailAddressConfirm').val();
+
+        var validInput = true;
+
+
+        if (value === 'Yes') {
+
+            member.questions.emailChoice = $('input[id=emailAnswer-yes]:checked').val();
+            member.questions.email = emailAddressConfirm;
+
+
+            if ((valueb == '') || (valueb == undefined)) {
+                $('#qemailAddress').addClass('form-group-error error');
+                $('.error-message.a').hide();
+                $('.error-message.b').show();
+                $('.error-message.d').hide();
+                $('.error-summary').show();
+                $('.error-summary').focus();
+                $('body').scrollTop(0);
+                validInput = false;
+
+            } else {
+                $('#qemailAddress').removeClass('form-group-error error');
+                $('.error-message.b').hide();
+            }
+
+
+            var valuec = $('input[name=emailAddressConfirm]').val();
+            if ((valuec == '') || (valuec == undefined)) {
+                $('#qemailAddressConfirm').addClass('form-group-error error');
+                $('.error-message.a').hide();
+                $('.error-message.c').show();
+                $('.error-message.d').hide();
+                $('.error-summary').show();
+                $('.error-summary').focus();
+                $('body').scrollTop(0);
+                validInput = false;
+
+            } else {
+                $('#qemailAddressConfirm').removeClass('form-group-error error');
+                $('.error-message.c').hide();
+            }
+
+
+            if ((valueb !== valuec) && (validInput)) {
+                $('#qemailAddress, #qemailAddressConfirm').addClass('form-group-error error');
+                $('.error-message.a').hide();
+                $('.error-message.b').hide();
+                $('.error-message.c').hide();
+                $('.error-message.d').show();
+                $('.error-summary').show();
+                $('.error-summary').focus();
+                $('body').scrollTop(0);
+                validInput = false;
+
+            } else {
+                $('.error-message.d').hide();
+            }
+
+
+            if (validInput) {
+                next();
+            }
+
+        } else if (value === 'No') {
+
+            delete member.questions.email;
+
+            member.questions.emailChoice = value;
+            next();
+
+        } else {
+            $('#question').addClass('form-group-error error');
+            $('.error-message.a').show();
+            $('.error-message.b').hide();
+            $('.error-message.c').hide();
+            $('.error-message.d').hide();
+            $('.error-summary').show();
+            $('body').scrollTop(0);
+            $('.error-summary').focus();
+        }
+    }
+
+
+    function next() {
+
+        if (changing == "true") {
+            go('/PR/check-your-details');
+
+        } else {
+            go('/PR/check-your-details');
+        }
+    }
+
+</script>
+{% endblock %}

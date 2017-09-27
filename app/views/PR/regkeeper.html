@@ -1,0 +1,85 @@
+{% extends "layout.html" %} {% block page_title %} Are you the registered keeper ? {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+
+
+    <fieldset class="inline">
+        <div class="grid-row" id="pr2">
+            <div class="column-two-thirds">
+
+                <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1" style="display: none">
+                    <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There was a problem</h1>
+
+                    <p>Please amend the following details:</p>
+                    <ul class="error-summary-list">
+                        <li class="summary error-message"><a href="#pr2-a1">Select an option</a></li>
+
+
+                    </ul>
+                </div>
+
+
+
+                <h1 class="heading-large">Are you the registered keeper?</h1>
+
+                <div class="form-group" id="question">
+                    <span class="question error-message">Make a selection </span>
+                    <fieldset class="inline">
+
+
+
+                        <div class="multiple-choice">
+                            <input id="pr2-a1" type="radio" name="pr2" value="Y">
+                            <label for="pr2-a1" id="pr2-a1-label">Yes, I am the registered keeper</label>
+                        </div>
+
+                        <p class="form-block"></p>
+
+                        <div class="multiple-choice">
+                            <input id="pr2-a2" type="radio" name="pr2" value="N">
+                            <label for="pr2-a2" id="pr2-a2-label">No, I am a business and have consent to act on thier behalf</label>
+                        </div>
+
+                    </fieldset>
+                </div>
+
+                {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+
+
+
+
+                <!--  end .form-group  -->
+
+
+                </form>
+            </div>
+            <!--  end column-two-thirds  -->
+        </div>
+        <!--  end gridrow  -->
+</main>
+<script type="text/javascript">
+    $(".button").click(function() {
+
+        validate();
+    });
+
+    function validate() {
+        var question = "Are you the registered keeper?";
+        var value = $('input[name=pr2]:checked').val();
+
+        if (value === 'Y') {
+            go('/PR/confirm-address.html');
+        } else if (value === 'N') {
+            go('/PR/confirm-address.html');
+        } else {
+
+            $('#question').addClass('error form-group-error');
+            $('.error-message').show();
+            $('.error-summary').show();
+            $('body').scrollTop(0);
+            $('.error-summary').focus();
+        }
+    }
+
+</script>
+{% endblock %}

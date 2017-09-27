@@ -1,0 +1,137 @@
+{% extends "layout.html" %} {% block page_title %} Enter vehicle details {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+    <div class="body-container group">
+        <h2 class="heading-large">Pay by debit or credit card</h2>
+
+        <div style="padding:0.8em 0 0.5em 0">
+            <img src="/public/images/pr/cards-visa-vdebit-master-maestro.png" width="216" height="32" alt="credit-cards">
+        </div>
+
+        <p xmlns:utils="urn:utils" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            Only UK Maestro, VISA Debit, MasterCard Debit, Electron debit cards, VISA <br />and MasterCard credit cards are accepted.
+        </p>
+
+        <h2 class="heading-medium">Purchase details</h2>
+
+        <div>
+            <span style="width:12em;float:left;font-weight:700;">Product</span> <span style="">DVLA Online ABC123</span>
+        </div>
+        <br>
+
+        <div>
+            <span style="width:12em;float:left;font-weight:700;">Amount</span> <span style="">£80</span>
+        </div>
+        <br>
+
+        <fieldset>
+            <div class="form-group" id="chname">
+                <label class="form-label" for="chname">
+					Cardholder name
+				</label>
+                <input class="form-control" id="chname" name="chname" type="text" value="">
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="form-group" id="cnumber">
+                <label class="form-label" for="cnumber">
+					Card number
+				</label>
+                <input class="form-control" id="cnumber" name="cnumber" type="text" value="">
+            </div>
+        </fieldset>
+
+        <div id="ExpiryDateDiv">
+            <strong>
+				<label for="MainContent_ExpiryMonthDropDown" id="MainContent_LabelForExpiry" class="label">Card expiry date</label>
+			</strong>
+
+            <span id="MainContent_cusExpiryDate" class="Validator" style="display:none;">Enter valid expiry date</span>
+
+            <div>
+                <select style="font-size:100%;width:100px;" name="ctl00$MainContent$ExpiryMonthDropDown" id="MainContent_ExpiryMonthDropDown">
+					<option selected="selected" value="-">Month</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select>
+                <select style="font-size:100%;width:80px;" name="ctl00$MainContent$ExpiryYearDropDown" id="MainContent_ExpiryYearDropDown">
+					<option selected="selected" value="-">Year</option>
+					<option value="2015">2015</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
+					<option value="2018">2018</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+				</select>
+            </div>
+        </div>
+
+        <div style="margin-top:1.0em">
+            <span>
+			<strong>
+			<label for="MainContent_SecurityCodeTextBox" id="MainContent_SecurityCodeLabel" class="label">
+			Card security code</label>
+			</strong></span>
+            <span class="form-hint"><noscript>a 3 or 4 digit code from your card</noscript></span>
+            <span id="MainContent_CardSecurityValid" class="Validator" style="display:none;">The card security code is invalid<br></span>
+            <span id="MainContent_SecurityRequiredValidator" class="Validator" style="display:none;">Enter card security code</span>
+            <div>
+                <!--<div  class="cc dc box form-hint">
+			<span>Visa and MasterCard have a 3 digit card security number on the back of the card.</span>
+			</div> 
+			<div  class="amex box form-hint">
+			<span>American Express has a 4 digit card security number on the front of the card.</span>
+			</div>   -->
+                <input style="width: 100px;" class="form-control" maxlength="4" size="4" type="tel" name="cvc" value="" id="cvc" pattern="[0-9]*"> &nbsp;
+            </div>
+        </div>
+
+        <div style="margin-top:1.5em">
+            <p class="label-bold"><strong>Total charge to card</strong></p>
+            <div>
+                <span style="width:12em;float:left;font-weight:700;">Amount</span>
+                <span style="">£80</span>
+            </div>
+        </div>
+        <br>
+
+
+
+        <!--      <div class="action">
+            <a href="../pr/spinner"><input name="ctl00$MainContent$butContinue" value="Pay now" class="button" type="submit"></a>
+            <img src="/public/images/loading.gif" id="Loading" alt="loading..." style="display: none;">
+        </div> -->
+        <!--</div>-->
+
+        <a class="button" href="/PR/Application-confirmation.html" role="button">Pay now</a>
+        <div class="action">
+            <br>
+            <div>
+                <div style="display:inline;">
+                    <a href="#">Cancel application</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

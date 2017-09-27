@@ -1,0 +1,127 @@
+{% extends "layout.html" %} {% block page_title %} Enter vehicle details {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+
+    <div class="grid-row no-bottom">
+
+        <div class="column-two-thirds no-bottom">
+
+
+            <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1" style="display: none">
+                <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There was a problem</h1>
+
+                <p>Please amend the following details:</p>
+                <ul class="error-summary-list">
+                    <li class="qaddress error-message"><a href="#vehReg">Provide your registration number</a></li>
+
+                    <li class="qpostCode error-message"><a href="#refNum">Provide your V5C registration certificate (logbook) reference</a></li>
+
+                    <li class="qpostCode error-message"><a href="#postcode">Provide your postcode</a></li>
+                </ul>
+            </div>
+            <h1 class="heading-large">Enter vehicle details</h1>
+            <form class="form">
+                <div class="form-group no-bottom">
+
+                    <fieldset>
+                        <legend class="visuallyhidden">Enter your details</legend>
+                        <div class="form-group" id="qvehReg">
+                            <label class="form-label-bold" for="vehReg">
+								Current registration number
+								<span class="form-hint">The registration number you want to take off the vehicle</span>
+								<span class="vehReg error-message" style="display: none;">Provide your registration number</span>
+							</label>
+                            <input class="form-control" id="vehReg" name="vehReg" type="text" style="text-transform:uppercase;" maxlength="8" value="">
+                        </div>
+
+                        <div class="form-group" id="qrefNum">
+                            <label class="form-label-bold" for="refNum">
+                                Latest V5C registration certificate (logbook) reference number
+								<span class="form-hint">The 11 digit reference number</span>
+								<span class="refNum error-message" style="display: none;">Provide your V5C registration certificate (logbook) reference</span>
+                            </label>
+                            <input class="form-control" id="refNum" name="refNum" type="tel" maxlength="11" value="">
+                        </div>
+
+                        <div class="form-group" id="qpostcode">
+                            <label class="form-label-bold" for="postcode">
+                                Postcode
+								<span class="form-hint">The post code of the current keeper as it appears on the V5C registration certificate (logbook)</span>
+								<span class="postcode error-message" style="display: none;">Provide your postcode</span>
+                            </label>
+                            <input class="form-control" id="postcode" name="postcode" type="text" style="text-transform:uppercase;" maxlength="8" value="">
+                        </div>
+                    </fieldset>
+
+                </div>
+                {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+                <!--  end .form-group  -->
+            </form>
+        </div>
+        <!--  end column-two-thirds  -->
+    </div>
+    <!--  end gridrow  -->
+</main>
+<script type="text/javascript">
+    $(".button").click(function() {
+
+        validate();
+    });
+
+    function validate() {
+        var question = "Address";
+        var validInput = true;
+
+
+        $('.vehReg.error-message').hide();
+        $('#vehReg').removeClass('error');
+
+        $('.refNum.error-message').hide();
+        $('#refNum').removeClass('error');
+
+        $('.postcode.error-message').hide();
+        $('#qpostcode').removeClass('error');
+
+        var vehReg = $('input[name=vehReg]').val();
+        if ((vehReg == '') || (vehReg == undefined)) {
+            $('#qvehReg').addClass('error form-group-error');
+            $('.vehReg.error-message').show();
+            $('.error-summary').show();
+            $('body').scrollTop(0);
+            $('.error-summary').focus();
+            validInput = false;
+        }
+
+        var refNum = $('input[name=refNum]').val();
+        if ((refNum.length !== 11)) {
+            $('#qrefNum').addClass('error form-group-error');
+            $('.refNum.error-message').show();
+            $('.error-summary').show();
+            $('body').scrollTop(0);
+            $('.error-summary').focus();
+            validInput = false;
+        }
+
+        var postcode = $('input[name=postcode]').val();
+        if ((postcode == '') || (postcode == undefined)) {
+            $('#qpostcode').addClass('error form-group-error');
+            $('.postcode.error-message').show();
+            $('.error-summary').show();
+            $('body').scrollTop(0);
+            $('.error-summary').focus();
+            validInput = false;
+        }
+
+        if (validInput) {
+
+            next();
+        }
+    }
+
+
+    function next() {
+        go('/PR/regkeeper.html');
+    }
+
+</script>
+{% endblock %}

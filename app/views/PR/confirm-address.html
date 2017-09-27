@@ -1,0 +1,114 @@
+{% extends "layout.html" %} {% block page_title %} Postage address {% endblock %} {% block head %} {% include "includes/head.html" %} {% include "includes/scripts.html" %} {% endblock %} {% import "templates/button.html" as button %} {% block content %}
+<main id="content" role="main">
+
+    {% include "includes/phase_banner_alpha.html" %} {% include "includes/buttons/back.html" %}
+
+    <main id="content" role="main">
+        <div class="grid-row" id="pr3">
+            <div class="column-two-thirds">
+
+
+                <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1" style="display: none">
+                    <h1 class="heading-medium error-summary-heading" id="error-summary-heading">There was a problem</h1>
+
+                    <p>Please amend the following details:</p>
+                    <ul class="error-summary-list">
+                        <li class="summary error-message"><a href="#pr3-a1">Select an option</a></li>
+
+
+                    </ul>
+                </div>
+                <h1 class="heading-large margin-bottom-1">Is this postage address correct?</h1>
+
+                <table class="check-your-answers">
+                    <tbody>
+                        <tr>
+                            <td class="margin-bottom-0-2">Registered Keeper</td>
+                            <td><strong>Mr Joe Bloggs</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="margin-bottom-0-2">Address</td>
+                            <td><strong>1 Example Street<br>Swansea<br>SA1 2BC</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <details>
+
+                    <summary><span class="summary">What do we use your address for?</span></summary>
+
+                    <div class="panel panel-border-narrow">
+
+                        <p>
+                            DVLA will use the address stated on your current V5C registration certificate (logbook) to send you:
+                        </p>
+                        <ul class="list list-bullet">
+                            <li>a V5C registration certifcate (logbook) for your replacement registration number</li>
+                            <li>a V778 retention certificate for the registration number you have retained</li>
+                        </ul>
+                        <p>These documents will arrive within 3 to 5 days after completing this service.</p>
+
+
+                    </div>
+
+                </details>
+                <br>
+
+                <form class="form">
+                    <div class="form-group" id="question">
+                        <span class="question error-message">Make a selection </span>
+                        <fieldset class="inline">
+                            <div class="multiple-choice">
+
+
+                                <input id="pr3-a1" type="radio" name="pr3" value="Y">
+                                <label class="block-label" for="pr3-a1" id="pr3-a1-label">Yes</label>
+
+                            </div>
+                            <div class="multiple-choice">
+                                <input id="pr3-a2" type="radio" name="pr3" value="N">
+                                <label class="block-label" for="pr3-a2" id="pr3-a2-label">No</label>
+
+                        </fieldset>
+
+                        </div>
+                        <br> {{ button.input(id='continue', name='continue', class='button', type='button', value='Continue') }}
+                    </div>
+                    <!--  end .form-group  -->
+
+
+
+                </form>
+
+
+            </div>
+            <!--  end column-two-thirds  -->
+        </div>
+        <!--  end gridrow  -->
+    </main>
+    <script type="text/javascript">
+        $(".button").click(function() {
+            // Enter function name here
+            validate();
+        });
+
+        function validate() {
+            var question = "Is this postage address correct?";
+            var value = $('input[name=pr3]:checked').val();
+
+            if (value === 'Y') {
+                go('/PR/emailconf.html');
+            } else if (value === 'N') {
+                go('/PR/addressincorrect.html');
+            } else {
+                $('#question').addClass('error form-group-error');
+                $('.error-message').show();
+                $('.error-summary').show();
+                $('body').scrollTop(0);
+                $('.error-summary').focus();
+            }
+        }
+
+    </script>
+    {% endblock %}
